@@ -11,7 +11,6 @@ const hours = ["08:40-9:30","09:40-10:30","10:40-11:30","11:40-12:30","12:40-13:
 const wildcardApis= ["Choose ...","Bored API", "Poetry DB", "Github Issue"];
 
 const boredApiLink = "http://www.boredapi.com/api/activity/";
-
 const poetyDBAuthorsLink = "https://poetrydb.org/author";
 const poetryDBLink = "https://poetrydb.org/";
 
@@ -26,8 +25,7 @@ function tableCreate() {
   let body = document.getElementById('kerem_table');
   let center = document.createElement('center');
   let tbl = document.createElement('table');
-  // tbl.style.width = '100%';
-    tbl.setAttribute('border', '1');
+  tbl.setAttribute('border', '1');
   let tbdy = document.createElement('tbody');
 
   //create thead
@@ -66,112 +64,71 @@ function tableCreate() {
   body.appendChild(center);
 }
 tableCreate();
-function formCreate(){
-    var myContainer = document.getElementById('my_container');
-    var myForm = document.getElementById('kerem_form');
 
-    var formGroup = document.createElement('div');
-    formGroup.setAttribute('className','form-group col-md-4');
-
-    var labelActivity = document.createElement('label');
-    labelActivity.setAttribute('htmlFor','activity_text');
-    labelActivity.innerText='Activity';
-
-    var textArea = document.createElement('textarea');
-    textArea.setAttribute('className','form-control');
-    textArea.setAttribute('id','activity_text');
-    textArea.setAttribute('rows','3');
-    textArea.setAttribute('placeholder','Put your plans here');
-
-    formGroup.appendChild(labelActivity);
-    formGroup.appendChild(textArea);
-
-    var formGroupWildcard = document.createElement('div');
-    formGroupWildcard.setAttribute('className','form-group col-md-4');
-
-    var labelWildcard = document.createElement('label');
-    labelWildcard.setAttribute('htmlFor','wildcard_state');
-    labelWildcard.innerText='Wildcard Options';
-
-    var select = document.createElement('select');
-    select.setAttribute('id','wildcard_state');
-    select.setAttribute('className', "form-control");
-
-    for (let i=0 ; i < wildcardApis.length ; i++){
-        var option = document.createElement('option');
-        option.textContent = wildcardApis[i];
-        select.appendChild(option);
-    }
-
-    formGroupWildcard.appendChild(labelWildcard);
-    formGroupWildcard.appendChild(select);
-
-    var button = document.createElement('button');
-    button.setAttribute('type','submit');
-    button.setAttribute('className', 'btn btn-primary');
-    button.textContent = 'Submit';
-
-    myForm.appendChild(formGroup);
-    myForm.appendChild(formGroupWildcard);
-    myForm.appendChild(button);
-    myContainer.appendChild(myForm);
-}
-// formCreate();
-
+/*  Listens the custom form 
+when form submitted it calles submitAdd method */
 const form = document.getElementById('kerem_form');
 form.addEventListener('submit', submitAdd);
 
+/* MAIN FUNCTION when form submit is called this function puts the random activity in
+  the selected cell of the table
+*/
 function submitAdd(event) {
     event.preventDefault();
     chosenApi = document.getElementById("wildcard_state").value;
     activity = document.getElementById("activity_text").value;
 
+  if ( pickedCell != null){
+
     if (chosenApi === wildcardApis[1]){
-        const jsonPromise = fetchAsync(boredApiLink);
-        jsonPromise.then((json) =>
-            pickedCell.textContent = json['activity']
-        );
+      const jsonPromise = fetchAsync(boredApiLink);
+      jsonPromise.then((json) =>
+          pickedCell.textContent = json['activity']
+      );
     }
 
     else if (chosenApi === wildcardApis[2]){
 
-        const jsonPromise = fetchAsync(poetryDBLink+'random');
-        jsonPromise.then((json) =>{
-            const link = poetryDBLink + 'title,author/'+ json[0]['title'] +
-                ';' + json[0]['author']
-                const linkNoSpace = link.replaceAll(" ","%20")
-                console.log(linkNoSpace)
+      const jsonPromise = fetchAsync(poetryDBLink+'random');
+      jsonPromise.then((json) =>{
+          const link = poetryDBLink + 'title,author/'+ json[0]['title'] +
+              ';' + json[0]['author']
+              const linkNoSpace = link.replaceAll(" ","%20")
+              console.log(linkNoSpace)
 
-            pickedCell.innerHTML = 'Read the following poem \n title: ' + json[0]['title'] +
-                '\n author: ' + json[0]['author'] +
-                '\n Poem can be found in the following link: ' +
-                link +
-                ' <a href='+ linkNoSpace + '> poem link </a> : '
-            }
-        )
+          pickedCell.innerHTML = 'Read the following poem \n title: ' + json[0]['title'] +
+              '\n author: ' + json[0]['author'] +
+              '\n Poem can be found in the following link: ' +
+              link 
+          }
+      )
     }
 
     else if (chosenApi === wildcardApis[3]){
-        const randomRepo = getRandomElement(repositories);
-        const githubIssueLink = githubApiRepoLink + randomRepo + 'issues'
-        const jsonPromise = fetchAsync(githubIssueLink);
-        jsonPromise.then((json) =>{
-            const randomIssue =  getRandomElement(json);
-            pickedCell.innerHTML = "Solve the following github issue from "+ randomRepo +
-            " Issue title: " + randomIssue['title'] +
-            " Issue link:  <a href=" + randomIssue['url']+ " > issue link </a> "
-            }
-        );
+      const randomRepo = getRandomElement(repositories);
+      const githubIssueLink = githubApiRepoLink + randomRepo + 'issues'
+      const jsonPromise = fetchAsync(githubIssueLink);
+      jsonPromise.then((json) =>{
+          const randomIssue =  getRandomElement(json);
+          pickedCell.innerHTML = "Solve the following github issue from "+ randomRepo +
+          " Issue title: " + randomIssue['title'] +
+          " Issue link:  <a href=" + randomIssue['url']+ " > issue link </a> "
+          }
+      );
 
     }
     else{
-        pickedCell.textContent = activity;
+      pickedCell.textContent = activity;
     }
-    chosenApi = "";
-    activity = "";
-    $(pickedCell).css("background-color",defaultTableBackgroundColor);
+
+  chosenApi = "";
+  activity = "";
+  $(pickedCell).css("background-color",defaultTableBackgroundColor);
 }
 
+}
+
+/* simple jquery method to select the table element */
 $("td").click(function(e){    
     $(pickedCell).css("background-color",defaultTableBackgroundColor);
     pickedCell = this;
@@ -180,6 +137,7 @@ $("td").click(function(e){
 
 });
 
+/*  Function to call fetch API  */ 
 async function fetchAsync (url) {
   try{
     const response = await fetch(url);
@@ -193,14 +151,16 @@ async function fetchAsync (url) {
   }
 }
 
+/* Functiom to pick a random element from an array */
 function getRandomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
-
+/*  Asyncrounos method that uses ajac to send post request to the backend
+This post request reaches to the /post endpoint and sends the screenshot image
+using base64 encoding */
 async function  sendPost(imageUrl){
-  url2 = '/post'
-
+  url2 = '/api/post'
   const callback = await $.ajax({
     type: "POST",
     url: url2,
@@ -212,21 +172,22 @@ async function  sendPost(imageUrl){
     console.log('saved');     
   });
   
-  console.log("calller response belowww")
-  console.log(callback.data.url)
-  console.log(window)
-  // alert( `You can find the screenshot of your schedule in the following link \n ${callback.data.url} ` )
+
   alert( callback.data.url )
   return callback; // parses JSON response into native JavaScript objects
 
 }
 
-
+/* method takes screenshot of the table then calles the callSendPostFromCanvas method  */ 
 const takeScreenshotFunc=  function takeScreenshot(){
   const screenshotPlace = document.getElementById("kerem_container")
   html2canvas(screenshotPlace).then(callSendPostFromCanvas)
 }
 
+/* Asyncronoues method that generates base64 image from canvas then 
+calls the sendPost() method after getting the responses
+generates a pop up for screenshot link in imagebb and adds the link to the screen
+*/
 async function callSendPostFromCanvas(canvas){
   const dataUrl =canvas.toDataURL("image/png")
 
@@ -241,6 +202,7 @@ async function callSendPostFromCanvas(canvas){
 
 }
 
+/* listens the Take Screenshot button if pressed calls takeScreenshot method  */
 const button_ss = document.getElementById("take-ss")
 button_ss.addEventListener('click',takeScreenshotFunc )
 

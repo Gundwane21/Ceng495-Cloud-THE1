@@ -17,27 +17,31 @@ app.use(cors())
 
 console.log(__dirname)
 
-//Idiomatic expression in express to route and respond to a client request
-app.get('/', (req, res) => {        //get requests to the root ("/") will route here
-    res.sendFile('index.html', {root: __dirname});      //server responds by sending the index.html file to the client's browser
-                                                        //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
+/*  get requests to the root ("/") will route here
+server responds by sending the index.html file to the client's browser
+*/
+app.get('/', (req, res) => {       
+    res.sendFile('index.html', {root: __dirname});      
+                                                         
 });
 
-app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
+/* server starts listening for any attempts from a client to connect at port taken from heroku  */
+app.listen(port, () => {            
     console.log(`Now listening on port ${port}`); 
 });
 
 
-app.post('/post'  , async (req,res) =>   {
+app.post('/api/post'  , async (req,res) =>   {
   
   var buf2 = Buffer.from(req.body)
   try {
     
     const formData = new FormData();
-
-    formData.append('key', process.env.IMBGBB_API_KEY);
+    const api_key = "a8d76c6468665d69393291b22acee8be"
+    formData.append('key', api_key);
+    // formData.append('key', process.env.IMBGBB_API_KEY);
     formData.append('image', buf2.toString().split(',')[1]  ) ;
-    
+
     const res2 = await axios.post( "https://api.imgbb.com/1/upload", formData, {
       headers: formData.getHeaders()
     })
