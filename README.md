@@ -1,3 +1,6 @@
+HERE IS THE WEBSITE LINK:
+https://rhea-weekly-scheduler.herokuapp.com/
+
 
 DEVELOPMENT DECISIONS
 
