@@ -44,17 +44,12 @@ app.listen(port, () => {            //server starts listening for any attempts f
 app.post('/post'  , async (req,res) =>   {
   
   var buf2 = Buffer.from(req.body)
-  // console.log(buf2.toString().split(',')[1])
   try {
     
     const api_key = 'a8d76c6468665d69393291b22acee8be'
-    const test_file_path = '/home/gundwane/Desktop/kerem1.png'
-    
-    // const stream2 = fs.createReadStream(test_file_path);
-
     const formData = new FormData();
 
-    formData.append('key', api_key);
+    formData.append('key', process.env.IMBGBB_API_KEY);
     formData.append('image', buf2.toString().split(',')[1]  ) ;
     
     const res2 = await axios.post( "https://api.imgbb.com/1/upload", formData, {
@@ -65,9 +60,7 @@ app.post('/post'  , async (req,res) =>   {
       return res.send(response.data)
     } )
     .catch(error => console.log(error))
-    console.log("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")
-    // console.log(res2)
-    // return res.send(res2)
+
     
   }catch(err){
     console.log(err.message)
