@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Kerem's Free Time Planner</title>
+
+    <style>
+        body{
+            background-color: #e5e5e5;
+        }
+        table{
+            border-collapse: collapse;
+            border-spacing: 0;
+            background-color: #ffffff;
+        }
+        th, td{
+            padding: 10px 10px;
+            background-color: #ffffff;
+            border: 1px solid #000;
+        }
+        input{
+            border: 0;
+            background-color: #0c4128;
+            width: 80px;
+            height: 30px;
+        }
+        #photo {
+			border: 4px solid green;
+			padding: 4px;
+		}
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src=
+    "https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.js">
+    </script>
+    <!-- <script async src="https://imgbb.com/upload.js"></script> -->
+</head>
+<body>
+<center>
+    <p> <span style="font-weight: bold"> Your Custom Weekly Planner </span> </p>
+    <p> <span> How to use it? <br /> Select timeslot from the table
+    <br /> Either write your activity and push submit
+    <br /> Or select one of the random options and push submit  </span> </p>
+    <button class="btn btn-primary" id = "take-ss">
+        Take Screenshot
+    </button>
+    <div >
+        <span id = "output" ></span>
+    </div>
+    <div class="container" id = "kerem_container">
+    <div id = "kerem_table">
+    </div>
+</div>
+<div class="container" id="my_container">
+<form id = "kerem_form">
+    <div class="form-group col-md-4">
+    <label for="activity_text">Activity</label>
+    <textarea class="form-control" id="activity_text" rows="3" placeholder="Put your plans here"></textarea>
+  </div>
+    <div class="form-group col-md-4">
+      <label for="wildcard_state">Wildcard Options</label>
+      <select id="wildcard_state" class="form-control">
+        <option selected>Choose...</option>
+        <option>Bored API</option>
+        <option>Poetry DB</option>
+        <option>Github Issue</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</center>
+<!-- <div id="photo-kerem">
+    <h1>GeeksforGeeks</h1>
+    Hello everyone! This is a
+    trial page for taking a
+    screenshot.
+    <br><br>
+    This is a dummy button!
+    <button> Dummy</button>
+    <br><br>
+    Click the button below to
+    take a screenshot of the div.
+    <br><br>
+
+    <!-- Define the button 
+    that will be used to 
+    take the screenshot -->
+
+<!-- </div> -->
+<!-- <h1>Screenshot:</h1> --> -->
+<!-- <div id="output"></div> -->
+<script src = "public/js/table.js">
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</body>
+</html>

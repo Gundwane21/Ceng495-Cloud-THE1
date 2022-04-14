@@ -1,0 +1,26 @@
+{
+  "name": "scheduler",
+  "version": "1.0.0",
+  "description": "simple scheduler Application",
+  "main": "index.js",
+  "scripts": {
+    "start":"node index.js"
+  },
+  "author": "Kerem Serttas",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.20.0",
+    "buffer-to-stream": "^1.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "file-saver": "^2.0.5",
+    "form-data": "^4.0.0",
+    "html2canvas": "^1.4.1",
+    "multer": "^1.4.4",
+    "stream-buffers": "^3.0.2"
+  },
+  "engines": {
+    "node": "17.3.0"
+  }
+}
