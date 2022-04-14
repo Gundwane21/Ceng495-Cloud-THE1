@@ -21,7 +21,7 @@ console.log(__dirname)
 server responds by sending the index.html file to the client's browser
 */
 app.get('/', (req, res) => {       
-    res.sendFile('index.html', {root: __dirname});      
+    res.sendFile('/public/index.html', {root: __dirname});      
                                                          
 });
 
@@ -37,9 +37,7 @@ app.post('/api/post'  , async (req,res) =>   {
   try {
     
     const formData = new FormData();
-    const api_key = "a8d76c6468665d69393291b22acee8be"
-    formData.append('key', api_key);
-    // formData.append('key', process.env.IMBGBB_API_KEY);
+    formData.append('key', process.env.IMBGBB_API_KEY);
     formData.append('image', buf2.toString().split(',')[1]  ) ;
 
     const res2 = await axios.post( "https://api.imgbb.com/1/upload", formData, {

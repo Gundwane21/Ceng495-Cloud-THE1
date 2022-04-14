@@ -197,7 +197,6 @@ async function callSendPostFromCanvas(canvas){
 
   span.innerHTML = newHTML
 
-  console.log("resposneee callsendpostfromcanvas")
   console.log(response)  
 
 }
