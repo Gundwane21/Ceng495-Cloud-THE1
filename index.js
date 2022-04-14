@@ -2,30 +2,17 @@ const express = require('express'); //Import the express dependency
 const app = express();              //Instantiate an express app, the main work horse of this server
 var cors = require('cors')
 var FormData = require('form-data');
-const os =require('os')
 const bodyParser = require('body-parser')
 
-const multer =require('multer')
-const upload  =multer({dest: os.tmpdir() } )
-
-// create application/json parser
-var jsonParser = bodyParser.json()
- 
-// create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.use(bodyParser.raw({
   type: 'application/octet-stream',
   limit:'50mb'
 }));
 
-
 const port = process.env.PORT || 5000 ;                  //Save the port number where your server will be listening
 const axios = require('axios');
-const path = require('path')
+
 app.use("/public", express.static(__dirname + '/public'))
-
-
-
 app.use(cors())
 
 console.log(__dirname)
@@ -46,7 +33,6 @@ app.post('/post'  , async (req,res) =>   {
   var buf2 = Buffer.from(req.body)
   try {
     
-    const api_key = 'a8d76c6468665d69393291b22acee8be'
     const formData = new FormData();
 
     formData.append('key', process.env.IMBGBB_API_KEY);
@@ -67,6 +53,6 @@ app.post('/post'  , async (req,res) =>   {
     return new Error(err.message)
   }
   
-}
+  }
 )
 
