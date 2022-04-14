@@ -10,7 +10,7 @@ const hours = ["08:40-9:30","09:40-10:30","10:40-11:30","11:40-12:30","12:40-13:
 
 const wildcardApis= ["Choose ...","Bored API", "Poetry DB", "Github Issue"];
 
-const boredApiLink = "http://www.boredapi.com/api/activity/";
+const boredApiLink = "https://www.boredapi.com/api/activity/";
 const poetyDBAuthorsLink = "https://poetrydb.org/author";
 const poetryDBLink = "https://poetrydb.org/";
 
