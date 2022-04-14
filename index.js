@@ -2,12 +2,8 @@ const express = require('express'); //Import the express dependency
 const app = express();              //Instantiate an express app, the main work horse of this server
 var cors = require('cors')
 var FormData = require('form-data');
-var fs = require('fs');
 const os =require('os')
 const bodyParser = require('body-parser')
-const { Readable } = require('stream');
-const streamBuffers = require('stream-buffers')
-var FileSaver = require('file-saver');
 
 const multer =require('multer')
 const upload  =multer({dest: os.tmpdir() } )
@@ -23,7 +19,7 @@ app.use(bodyParser.raw({
 }));
 
 
-const port = 8080;                  //Save the port number where your server will be listening
+const port = process.env.PORT || 5000 ;                  //Save the port number where your server will be listening
 const axios = require('axios');
 const path = require('path')
 app.use("/public", express.static(__dirname + '/public'))
